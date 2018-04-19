@@ -32,6 +32,7 @@ AMLErrorCode ExceptionCodeToErrorCode(AML::ResultCode result)
         case AML::KEY_NOT_EXIST :           return AML_KEY_NOT_EXIST;
         case AML::KEY_ALREADY_EXIST :       return AML_KEY_ALREADY_EXIST;
         case AML::WRONG_GETTER_TYPE :       return AML_WRONG_GETTER_TYPE;
+        case AML::API_NOT_ENABLED :         return AML_API_NOT_ENABLED;
         default : /* AML::NO_ERROR */       return AML_OK;
     }
 }

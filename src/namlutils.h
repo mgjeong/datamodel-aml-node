@@ -34,6 +34,7 @@ typedef enum
     AML_KEY_NOT_EXIST,
     AML_KEY_ALREADY_EXIST,
     AML_WRONG_GETTER_TYPE,
+    AML_API_NOT_ENABLED,
 } AMLErrorCode;
 
 AMLErrorCode ExceptionCodeToErrorCode(AML::ResultCode result);

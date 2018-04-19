@@ -11,7 +11,7 @@ datamodel-aml-node is a nodejs binding written over [datamodel-aml-cpp](https://
 
 - npm
   - Version : 5.6.0
-  
+
 ## How to build ##
 1. Goto: ~/datamodel-aml-node/
 2. Run the script:
@@ -29,20 +29,20 @@ datamodel-aml-node is a nodejs binding written over [datamodel-aml-cpp](https://
 
 ### Prerequisites ###
  Built datamodel-aml-node.
- 
+
  ### sample ###
 1. Goto: ~/datamodel-aml-node/samples/
 2. Run the sample:
     ```
     node sample.js
     ```
-   
+
 ## Running unit test cases ##
 
 ### Prerequisites ###
  Built datamodel-aml-node.
- 
-### Unit test ### 
+
+### Unit test ###
 1. Goto: ~/datamodel-aml-node/unittests
 2. Run the test cases:
    ```
