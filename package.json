@@ -1,0 +1,22 @@
+{
+  "name": "aml-node",
+  "version": "0.0.1",
+  "description": "Node binding over datamodel-aml-cpp",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "",
+    "install": "node-gyp rebuild"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.sec.samsung.net/RS7-EdgeComputing/datamodel-aml-node"
+  },
+  "keywords": [
+  ],
+  "author": "",
+  "license": "\tApache-2.0",
+  "gypfile": true
+}
