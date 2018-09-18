@@ -2,7 +2,7 @@ var assert = require('assert');
 var aml = require('../');
 
 var representation = new aml.Representation('sample_data_model.aml');
-var deviceId = 'GTC001';
+var deviceId = 'SAMPLE001';
 var timeStamp = '123456789';
 var id = 'ID';
 
@@ -24,11 +24,11 @@ describe('#add_getData()', function() {
     it('should add/get amlData from amlObject', function() {
         var amlObj = new aml.AMLObject(deviceId, timeStamp, id);
         var model = new aml.AMLData();
-        model.setValue('ctname', 'Model_107.113.97.248');
-        model.setValue('con', 'SR-P7-970');
+        model.setValue('a', 'Model_107.113.97.248');
+        model.setValue('b', 'SR-P7-970');
         amlObj.addData('Model', model);
         var amlData = amlObj.getData('Model');
-        assert.equal('Model_107.113.97.248', amlData.getValueToStr('ctname'));
+        assert.equal('Model_107.113.97.248', amlData.getValueToStr('a'));
     });
 });
 
@@ -36,8 +36,8 @@ describe('#getDataNames()', function() {
     it('should get string list of AMLObjects amlData keys', function() {
         var amlObj = new aml.AMLObject(deviceId, timeStamp, id);
         var model = new aml.AMLData();
-        model.setValue('ctname', 'Model_107.113.97.248');
-        model.setValue('con', 'SR-P7-970');
+        model.setValue('a', 'Model_107.113.97.248');
+        model.setValue('b', 'SR-P7-970');
         amlObj.addData('Model', model);
         assert.equal('Model', amlObj.getDataNames()[0]);
     });

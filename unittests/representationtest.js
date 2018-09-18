@@ -2,7 +2,7 @@ var assert = require('assert');
 var aml = require('../');
 
 var representation = new aml.Representation('sample_data_model.aml');
-var deviceId = 'GTC001';
+var deviceId = 'SAMPLE001';
 var timeStamp = '123456789';
 
 describe('#getRepresentationId()', function() {
@@ -23,8 +23,8 @@ describe('#dataToAml()', function() {
     it('should return AML String', function() {
         var amlObj = new aml.AMLObject(deviceId, timeStamp);
         var model = new aml.AMLData();
-        model.setValue('ctname', 'Model_107.113.97.248');
-        model.setValue('con', 'SR-P7-970');
+        model.setValue('a', 'Model_107.113.97.248');
+        model.setValue('b', 'SR-P7-970');
         amlObj.addData('Model', model);
         var amlString = representation.dataToAml(amlObj);
         assert.notEqual(amlString, '');
@@ -35,8 +35,8 @@ describe('#amlToData()', function() {
     it('should return AML Object', function() {
         var amlObj = new aml.AMLObject(deviceId, timeStamp);
         var model = new aml.AMLData();
-        model.setValue('ctname', 'Model_107.113.97.248');
-        model.setValue('con', 'SR-P7-970');
+        model.setValue('a', 'Model_107.113.97.248');
+        model.setValue('b', 'SR-P7-970');
         amlObj.addData('Model', model);
         var amlString = representation.dataToAml(amlObj);
         var convertedObj = representation.amlToData(amlString);
@@ -48,8 +48,8 @@ describe('#dataToByte()', function() {
     it('should return AML String', function() {
         var amlObj = new aml.AMLObject(deviceId, timeStamp);
         var model = new aml.AMLData();
-        model.setValue('ctname', 'Model_107.113.97.248');
-        model.setValue('con', 'SR-P7-970');
+        model.setValue('a', 'Model_107.113.97.248');
+        model.setValue('b', 'SR-P7-970');
         amlObj.addData('Model', model);
         var byte_string = representation.dataToByte(amlObj);
         assert.notEqual(byte_string, '');
@@ -60,8 +60,8 @@ describe('#byteToData()', function() {
     it('should return AML Object', function() {
         var amlObj = new aml.AMLObject(deviceId, timeStamp);
         var model = new aml.AMLData();
-        model.setValue('ctname', 'Model_107.113.97.248');
-        model.setValue('con', 'SR-P7-970');
+        model.setValue('a', 'Model_107.113.97.248');
+        model.setValue('b', 'SR-P7-970');
         amlObj.addData('Model', model);
         var byte_string = representation.dataToByte(amlObj);
         var data_from_byte = representation.byteToData(
