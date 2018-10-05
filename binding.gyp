@@ -45,6 +45,22 @@
                 ]
               }
           ],
+          ['config=="armhf_release"',
+            {
+              "ldflags": [
+              "-L<(module_root_dir)/dependencies/datamodel-aml-cpp/out/linux/armhf/release/",
+              "-Wl,-rpath,<(module_root_dir)/dependencies/datamodel-aml-cpp/out/linux/armhf/release/",
+              ]
+            }
+          ],
+          ['config=="armhf_debug"',
+              {
+                "ldflags": [
+                "-L<(module_root_dir)/dependencies/datamodel-aml-cpp/out/linux/armhf/debug/",
+                "-Wl,-rpath,<(module_root_dir)/dependencies/datamodel-aml-cpp/out/linux/armhf/debug/",
+                ]
+              }
+          ],
        ], 
       "libraries": [
           "-laml"

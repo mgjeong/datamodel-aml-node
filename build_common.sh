@@ -48,9 +48,13 @@ install_aml_dependencies() {
 
     cd ./dependencies/datamodel-aml-cpp
 
-    # Build datamodel-aml-cpp for given architecture [x86/x86_64]
+    # Build datamodel-aml-cpp for given architecture [x86/x86_64/armhf-native]
     echo -e "${GREEN}Installing aml library and its dependencies${NO_COLOUR}"
-    ./build_common.sh --target_arch=${AML_TARGET_ARCH} --install_prerequisites=${AML_INSTALL_PREREQUISITES} --build_mode=${AML_BUILD_MODE} --logging=${AML_LOGGING} --disable_protobuf=${AML_DISABLE_PROTOBUF}
+    if [ "armhf" = ${AML_TARGET_ARCH} ]; then
+        ./build_common.sh --target_arch=armhf-native --install_prerequisites=${AML_INSTALL_PREREQUISITES} --build_mode=${AML_BUILD_MODE} --logging=${AML_LOGGING} --disable_protobuf=${AML_DISABLE_PROTOBUF}
+    else 
+        ./build_common.sh --target_arch=${AML_TARGET_ARCH} --install_prerequisites=${AML_INSTALL_PREREQUISITES} --build_mode=${AML_BUILD_MODE} --logging=${AML_LOGGING} --disable_protobuf=${AML_DISABLE_PROTOBUF}
+    fi
     echo -e "${GREEN}Installation of aml dependencies [datamodel-aml-cpp] done${NO_COLOUR}"
 }
 
@@ -92,6 +96,18 @@ build_x86_64() {
     echo -e "${GREEN}Installation of aml addon done${NO_COLOUR}"
 }
 
+build_armhf() {
+    cd $PROJECT_ROOT
+    node_modules/node-gyp/bin/node-gyp.js clean
+    if [ "debug" = ${AML_BUILD_MODE} ]; then
+        node_modules/node-gyp/bin/node-gyp.js --config=armhf_debug configure
+    else
+        node_modules/node-gyp/bin/node-gyp.js --config=armhf_release configure
+    fi
+    node_modules/node-gyp/bin/node-gyp.js build
+    echo -e "${GREEN}Installation of aml addon done${NO_COLOUR}"
+}
+
 clean_aml() {
     echo -e "Cleaning ${BLUE}${PROJECT_ROOT}${NO_COLOUR}"
     echo -e "Deleting  ${RED}${PROJECT_ROOT}/dependencies/${NO_COLOUR}"
@@ -102,28 +118,24 @@ clean_aml() {
 usage() {
     echo -e "${BLUE}Usage:${NO_COLOUR} ./build_common.sh <option>"
     echo -e "${GREEN}Options:${NO_COLOUR}"
-    echo "  --target_arch=[x86|x86_64]                                         :  Choose Target Architecture"
+    echo "  --target_arch=[x86|x86_64|armhf]                                   :  Choose Target Architecture"
     echo "  --build_mode=[release|debug](default: release)                     :  Build in release or debug mode"
     echo "  --js_dependencies=[true|false](default: false)                     :  install js dependencies"
     echo "  --disable_protobuf=[true|false](default: false)                    :  Disable protobuf feature"
     echo "  --install_prerequisites=[true|false](default: false)               :  Install the prerequisite S/W to build aml [Protocol-buffer]"
     echo "  -c                                                                 :  Clean aml Repository and its dependencies"
     echo "  -h / --help                                                        :  Display help and exit"
-    echo -e "${GREEN}Examples: ${NO_COLOUR}"
-    echo -e "${BLUE}  build:-${NO_COLOUR}"
-    echo "  $ ./build_common.sh --target_arch=x86_64"
-    echo "  $ ./build_common.sh --install_prerequisites=true --target_arch=x86_64 "
-    echo -e "${BLUE}  debug mode build:-${NO_COLOUR}"
-    echo "  $ ./build_common.sh --target_arch=x86_64 --build_mode=debug"
-    echo -e "${BLUE}  clean:-${NO_COLOUR}"
-    echo "  $ ./build_common.sh -c"
-    echo -e "${BLUE}  help:-${NO_COLOUR}"
-    echo "  $ ./build_common.sh -h"
     echo -e "${GREEN}Notes: ${NO_COLOUR}"
     echo "  - While building for the first time use: --js_dependencies=true option."
 }
 
 build_aml() {
+    echo -e "${GREEN}Target Arch is: $AML_TARGET_ARCH${NO_COLOUR}"
+    echo -e "${GREEN}Build mode is: $AML_BUILD_MODE${NO_COLOUR}"
+    echo -e "${GREEN}Build js dependencies: $AML_JS_DEP${NO_COLOUR}"
+    echo -e "${GREEN}Install prerequisites before build: ${AML_INSTALL_PREREQUISITES}${NO_COLOUR}"
+    echo -e "${GREEN}is Protobuf disabled : $AML_DISABLE_PROTOBUF${NO_COLOUR}"
+
     if [ ${AML_JS_DEP} = true ]; then
         install_jsdependencies
     fi
@@ -132,6 +144,8 @@ build_aml() {
          build_x86;
     elif [ "x86_64" = ${AML_TARGET_ARCH} ]; then
          build_x86_64;
+    elif [ "armhf" = ${AML_TARGET_ARCH} ]; then
+         build_armhf;
     else
          echo -e "${RED}Not a supported architecture${NO_COLOUR}"
          usage; exit 1;
@@ -152,17 +166,14 @@ process_cmd_args() {
                     echo -e "${RED}Unknown option for --install_prerequisites${NO_COLOUR}"
                     shift 1; exit 0
                 fi
-                echo -e "${GREEN}Install the prerequisites before build: ${AML_INSTALL_PREREQUISITES}${NO_COLOUR}"
                 shift 1;
                 ;;
             --target_arch=*)
                 AML_TARGET_ARCH="${1#*=}";
-                echo -e "${GREEN}Target Arch is: $AML_TARGET_ARCH${NO_COLOUR}"
                 shift 1
                 ;;
             --build_mode=*)
                 AML_BUILD_MODE="${1#*=}";
-                echo -e "${GREEN}Build mode is: $AML_BUILD_MODE${NO_COLOUR}"
                 shift 1;
                 ;;
             --js_dependencies=*)
@@ -171,7 +182,6 @@ process_cmd_args() {
                     echo -e "${RED}Unknown option for --js_dependencies${NO_COLOUR}"
                     shift 1; exit 0
                 fi
-                echo -e "${GREEN}Build js dependencies: $AML_JS_DEP${NO_COLOUR}"
                 shift 1;
                 ;;
             --disable_protobuf=*)
@@ -180,7 +190,6 @@ process_cmd_args() {
                     echo -e "${RED}Unknown option for --disable_protobuf${NO_COLOUR}"
                     shift 1; exit 0
                 fi
-                echo -e "${GREEN}is Protobuf disabled : $AML_DISABLE_PROTOBUF${NO_COLOUR}"
                 shift 1;
                 ;;
             -c)
