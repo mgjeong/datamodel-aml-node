@@ -2,7 +2,7 @@ var assert = require('assert');
 var aml = require('../');
 
 var representation = new aml.Representation('sample_data_model.aml');
-var deviceId = 'GTC001';
+var deviceId = 'SAMPLE001';
 var timeStamp = '123456789';
 var id = 'ID';
 
@@ -16,9 +16,9 @@ describe('#constructAMLData()', function() {
 describe('#set_getValue()', function() {
     it('should set/get string value from amldata', function() {
         var model = new aml.AMLData();
-        model.setValue('ctname', 'Model_107.113.97.248');
-        model.setValue('con', 'SR-P7-970');
-        assert.equal('SR-P7-970', model.getValueToStr('con'));
+        model.setValue('a', 'Model_107.113.97.248');
+        model.setValue('b', 'SR-P7-970');
+        assert.equal('SR-P7-970', model.getValueToStr('b'));
     });
 });
 
@@ -47,9 +47,9 @@ describe('#set_getAMLDataValue()', function() {
 describe('#getKeys()', function() {
     it('Get all the keys in amldata', function() {
         var model = new aml.AMLData();
-        model.setValue('ctname', 'Model_107.113.97.248');
+        model.setValue('a', 'Model_107.113.97.248');
         model.setValue('id', 'f437da3b');
-        assert.equal('ctname', model.getKeys()[0]);
+        assert.equal('a', model.getKeys()[0]);
         assert.equal('id', model.getKeys()[1]);
     });
 });
@@ -57,7 +57,7 @@ describe('#getKeys()', function() {
 describe('#getValueType()', function() {
     it('getValueType from amldata', function() {
         var model = new aml.AMLData();
-        model.setValue('ctname', 'Model_107.113.97.248');
-        assert.equal(aml.AMLValueType.String, model.getValueType('ctname'));
+        model.setValue('a', 'Model_107.113.97.248');
+        assert.equal(aml.AMLValueType.String, model.getValueType('a'));
     });
 });

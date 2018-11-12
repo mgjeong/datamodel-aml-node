@@ -68,15 +68,15 @@ console.log(
 );
 
 // create AMLObject
-var deviceId = 'GTC001';
+var deviceId = 'SAMPLE001';
 var timeStamp = '123456789';
 
 var amlObj = new aml.AMLObject(deviceId, timeStamp);
 
 // create "Model" data
 var model = new aml.AMLData();
-model.setValue('ctname', 'Model_107.113.97.248');
-model.setValue('con', 'SR-P7-970');
+model.setValue('a', 'Model_107.113.97.248');
+model.setValue('b', 'SR-P7-970');
 
 // create "Sample" data
 var axis = new aml.AMLData();
