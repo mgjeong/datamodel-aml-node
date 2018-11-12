@@ -47,8 +47,8 @@ install_aml_dependencies() {
     fi
 
     cd ./dependencies/datamodel-aml-cpp
-    git fetch origin
-	 git checkout v1.0_rel
+    git checkout master
+    git pull
 
     # Build datamodel-aml-cpp for given architecture [x86/x86_64]
     echo -e "${GREEN}Installing aml library and its dependencies${NO_COLOUR}"
