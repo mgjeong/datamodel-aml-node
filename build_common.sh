@@ -42,7 +42,7 @@ install_aml_dependencies() {
         mkdir dependencies
         cd ./dependencies
         #clone datamodel-aml-cpp
-        git clone git@github.sec.samsung.net:RS7-EdgeComputing/datamodel-aml-cpp.git
+        git clone https://github.com/edgexfoundry-holding/datamodel-aml-cpp.git
         cd $PROJECT_ROOT
     fi
 
