@@ -1,6 +1,6 @@
 # DataModel AML library (nodejs)
 
-datamodel-aml-node is a nodejs binding written over [datamodel-aml-cpp](https://github.sec.samsung.net/RS7-EdgeComputing/datamodel-aml-cpp), that provides the way to present raw data(key/value based) to AutomationML(AML) standard format.
+datamodel-aml-node is a nodejs binding written over [datamodel-aml-cpp](https://github.com/edgexfoundry-holding/datamodel-aml-cpp), that provides the way to present raw data(key/value based) to AutomationML(AML) standard format.
  - Transform raw data to AML data(XML).
  - Serialization / Deserialization AML data using protobuf.
 
